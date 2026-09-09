@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LibroFacil.Api/LibroFacil.Api.csproj" />
+    <Project Path="src/LibroFacil.Application/LibroFacil.Application.csproj" />
+    <Project Path="src/LibroFacil.Domain/LibroFacil.Domain.csproj" />
+    <Project Path="src/LibroFacil.Infrastructure/LibroFacil.Infrastructure.csproj" />
+  </Folder>
+</Solution>
