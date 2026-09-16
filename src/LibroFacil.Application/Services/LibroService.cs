@@ -26,7 +26,7 @@ public class LibroService
     {
         var libroExistente = await _repository.GetByIdAsync(id);
         if (libroExistente == null)
-            throw new ArgumentException("El libro no existe.");
+            throw new ArgumentException("El libro no existe");
 
         await ValidarLibroAsync(libroActualizado, esNuevo: false, idActual: id);
 
@@ -43,29 +43,23 @@ public class LibroService
 
     private async Task ValidarLibroAsync(Libro libro, bool esNuevo, int idActual = 0)
     {
-        // Regla 1: ISBN obligatorio
         if (string.IsNullOrWhiteSpace(libro.ISBN))
-            throw new ArgumentException("El ISBN es obligatorio.");
+            throw new ArgumentException("El ISBN es obligatorio");
 
-        // Regla 2: Título obligatorio
         if (string.IsNullOrWhiteSpace(libro.Titulo))
-            throw new ArgumentException("El título es obligatorio.");
+            throw new ArgumentException("El título es obligatorio");
 
-        // Regla 3: Autor obligatorio
         if (string.IsNullOrWhiteSpace(libro.Autor))
-            throw new ArgumentException("El autor es obligatorio.");
+            throw new ArgumentException("El autor es obligatorio");
 
-        // Regla 4: Año mayor a 0 y no mayor al año actual
         if (libro.AnioPublicacion <= 0 || libro.AnioPublicacion > DateTime.Now.Year)
-            throw new ArgumentException($"El año de publicación debe ser mayor a 0 y no mayor al año actual ({DateTime.Now.Year}).");
+            throw new ArgumentException($"El año de publicación debe ser mayor a 0 y no mayor al año actual ({DateTime.Now.Year})");
 
-        // Regla 5: Stock no negativo
         if (libro.Stock < 0)
             throw new ArgumentException("El stock no puede ser negativo.");
 
-        // Regla 1 (Continuación): ISBN no repetido
         var libroExistenteConIsbn = await _repository.GetByIsbnAsync(libro.ISBN);
         if (libroExistenteConIsbn != null && (esNuevo || libroExistenteConIsbn.Id != idActual))
-            throw new InvalidOperationException("El ISBN ya existe en el sistema.");
+            throw new InvalidOperationException("El ISBN ya existe en el sistema");
     }
 }

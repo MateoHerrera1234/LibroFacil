@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar DbContext con SQL Server
 builder.Services.AddDbContext<LibroFacilDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Inyección de dependencias
 builder.Services.AddScoped<ILibroRepository, LibroRepositoryEf>();
 builder.Services.AddScoped<LibroService>();
 
